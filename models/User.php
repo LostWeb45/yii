@@ -19,7 +19,7 @@ use Yii;
  * @property Reqest[] $reqests
  * @property Role $role
  */
-class Usernew extends \yii\db\ActiveRecord
+class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
     /**
      * {@inheritdoc}
@@ -79,9 +79,7 @@ class Usernew extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Role::class, ['id' => 'id_role']);
     }
-}
-class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
-{
+
     public $id;
     public $username;
     public $password;
