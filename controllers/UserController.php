@@ -2,11 +2,13 @@
 
 namespace app\controllers;
 
+use app\models\RegForm;
 use app\models\User;
 use app\models\UsersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -67,20 +69,26 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
-        $model = new User();
+        $model = new RegForm();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            // Присваиваем пароль без хеширования
+            $model->password = $model->passwordConfirm; // Убедитесь, что пароли совпадают
+            if ($model->save()) {
+                Yii::$app->user->login($model);
+                Yii::$app->session->setFlash('success', 'Вы успешно зарегистрировались!');
+                return $this->redirect(['/']);
+            } else {
+                Yii::$app->session->setFlash('error', 'Ошибка при регистрации: ' . implode(', ', $model->getFirstErrors()));
             }
-        } else {
-            $model->loadDefaultValues();
         }
 
         return $this->render('create', [
             'model' => $model,
         ]);
     }
+
+
 
     /**
      * Updates an existing User model.
