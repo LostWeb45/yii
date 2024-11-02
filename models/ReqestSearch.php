@@ -67,4 +67,34 @@ class ReqestSearch extends Reqest
 
         return $dataProvider;
     }
+    public function searchForUser($params, $id_user)
+    {
+        $query = Reqest::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere(['id_user' => $id_user]);
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'id_film' => $this->id_film,
+            'id_user' => $this->id_user,
+            'date_req' => $this->date_req,
+            'id_status' => $this->id_status,
+        ]);
+
+        return $dataProvider;
+    }
 }

@@ -9,6 +9,7 @@ use app\models\RoleSearch;
 use app\models\Reqest;
 use app\models\User;
 use app\models\Films;
+use app\models\ReqestSearch;
 use app\models\Status;
 
 use yii\web\Controller;
@@ -23,7 +24,7 @@ class LkController extends Controller
 {
     public function beforeAction($action)
     {
-        if (Yii::$app->user->isGuest || (Yii::$app->user->identity->id_role != 2)) {
+        if (Yii::$app->user->isGuest || (Yii::$app->user->identity->id_role != 1)) {
             $this->redirect(['site/login']);
         }
 
@@ -60,7 +61,7 @@ class LkController extends Controller
      */
     public function search()
     {
-        $searchModel = new RoleSearch();
+        $searchModel = new ReqestSearch();
         $dataProvider = $searchModel->searchForUser($this->request->queryParams, Yii::$app->user->identity->id_role);
 
         return $this->render('index', [
@@ -101,7 +102,8 @@ class LkController extends Controller
         }
 
         $films = Films::find()->all();
-        $films = ArrayHelper::map($films, 'id', 'name');
+        var_dump($films);
+        $films = ArrayHelper::map($films, 'id', 'title');
 
         return $this->render('create', [
             'model' => $model,
@@ -115,18 +117,18 @@ class LkController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
+    // public function actionUpdate($id)
+    // {
+    //     $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+    //     if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+    //         return $this->redirect(['view', 'id' => $model->id]);
+    //     }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
+    //     return $this->render('update', [
+    //         'model' => $model,
+    //     ]);
+    // }
 
     /**
      * Deletes an existing Role model.
@@ -156,5 +158,17 @@ class LkController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    public function actionIndex()
+    {
+        $searchModel = new ReqestSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+        return $this->render(
+            'index',
+            [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]
+        );
     }
 }
