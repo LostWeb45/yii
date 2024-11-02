@@ -2,19 +2,39 @@
 
 namespace app\controllers;
 
-use app\models\RegForm;
+use Yii;
+
+use app\models\Role;
+use app\models\RoleSearch;
+use app\models\Reqest;
 use app\models\User;
-use app\models\UsersSearch;
+use app\models\Films;
+use app\models\Status;
+
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
- * UserController implements the CRUD actions for User model.
+ * RoleController implements the CRUD actions for Role model.
  */
-class UserController extends Controller
+class LkController extends Controller
 {
+    public function beforeAction($action)
+    {
+        if (Yii::$app->user->isGuest || (Yii::$app->user->identity->id_role != 2)) {
+            $this->redirect(['site/login']);
+        }
+
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
+
+        // other custom code here
+
+        return true; // or false to not run the action
+    }
     /**
      * @inheritDoc
      */
@@ -34,14 +54,14 @@ class UserController extends Controller
     }
 
     /**
-     * Lists all User models.
+     * Lists all Role models.
      *
      * @return string
      */
-    public function actionIndex()
+    public function search()
     {
-        $searchModel = new UsersSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $searchModel = new RoleSearch();
+        $dataProvider = $searchModel->searchForUser($this->request->queryParams, Yii::$app->user->identity->id_role);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -50,7 +70,7 @@ class UserController extends Controller
     }
 
     /**
-     * Displays a single User model.
+     * Displays a single Role model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -63,34 +83,33 @@ class UserController extends Controller
     }
 
     /**
-     * Creates a new User model.
+     * Creates a new Role model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new RegForm();
+        $model = new Role();
+        $model->id = Yii::$app->user->identity->id;
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->password = $model->passwordConfirm;
-            if ($model->save()) {
-                Yii::$app->user->login($model);
-                Yii::$app->session->setFlash('success', 'Вы успешно зарегистрировались!');
-                return $this->redirect(['/']);
-            } else {
-                Yii::$app->session->setFlash('error', 'Ошибка при регистрации: ' . implode(', ', $model->getFirstErrors()));
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
             }
+        } else {
+            $model->loadDefaultValues();
         }
+
+        $films = Films::find()->all();
+        $films = ArrayHelper::map($films, 'id', 'name');
 
         return $this->render('create', [
             'model' => $model,
         ]);
     }
 
-
-
     /**
-     * Updates an existing User model.
+     * Updates an existing Role model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -110,7 +129,7 @@ class UserController extends Controller
     }
 
     /**
-     * Deletes an existing User model.
+     * Deletes an existing Role model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -124,15 +143,15 @@ class UserController extends Controller
     }
 
     /**
-     * Finds the User model based on its primary key value.
+     * Finds the Role model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return User the loaded model
+     * @return Role the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = User::findOne(['id' => $id])) !== null) {
+        if (($model = Role::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

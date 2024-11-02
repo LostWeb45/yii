@@ -34,30 +34,35 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <header id="header">
         <?php
         NavBar::begin([
-            'brandLabel' => Yii::$app->name,
+            // 'brandLabel' => Yii::$app->name,
+            'brandLabel' => 'KinoProEvreev.com',
             'brandUrl' => Yii::$app->homeUrl,
             'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
         ]);
+        $items = [];
+        if (Yii::$app->user->isGuest) {
+            $items[] =  ['label' => 'Регистрация', 'url' => ['/user/create']];
+            $items[] = ['label' => 'Авторизация', 'url' => ['/site/login']];
+        } else {
+            if (Yii::$app->user->identity->id_role == 2) {
+                $items[] = ['label' => 'Админ панель', 'url' => ['/admin']];
+            } else {
+                $items[] = ['label' => 'Личный кабинет', 'url' => ['/lk']];
+            }
+            $items[] = '<li>'
+                . Html::beginForm(['/site/logout'])
+                . Html::submitButton(
+                    'Logout (' . Yii::$app->user->identity->login . ')',
+                    ['class' => 'nav-link btn btn-link logout']
+                )
+                . Html::endForm();
+        }
         echo Nav::widget([
-            'options' => ['class' => 'navbar-nav'],
-            'items' => [
-                ['label' => 'Home', 'url' => ['/site/index']],
-                ['label' => 'About', 'url' => ['/site/about']],
-                ['label' => 'Contact', 'url' => ['/site/contact']],
-                Yii::$app->user->isGuest
-                    ? ['label' => 'Login', 'url' => ['/site/login']]
-                    : '<li class="nav-item">'
-                    . Html::beginForm(['/site/logout'])
-                    . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->login . ')',
-                        ['class' => 'nav-link btn btn-link logout']
-                    )
-                    . Html::endForm()
-                    . '</li>'
-            ]
+            'options' => ['class' => 'navbar-bar'],
+            'items' => $items,
         ]);
-        NavBar::end();
         ?>
+
     </header>
 
     <main id="main" class="flex-shrink-0" role="main">

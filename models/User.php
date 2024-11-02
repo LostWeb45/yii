@@ -14,6 +14,7 @@ use Yii;
  * @property string $login
  * @property string $email
  * @property string $password
+ * @property string $passwordConfirm
  * @property int $id_role
  *
  * @property Reqest[] $reqests
@@ -24,6 +25,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     /**
      * {@inheritdoc}
      */
+    public $agree;
+    public $passwordConfirm;
     public static function tableName()
     {
         return 'user';
@@ -83,14 +86,14 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     private static $users = [
         '100' => [
             'id' => '100',
-            'username' => 'admin',
+            'login' => 'admin',
             'password' => 'admin',
             'authKey' => 'test100key',
             'accessToken' => '100-token',
         ],
         '101' => [
             'id' => '101',
-            'username' => 'demo',
+            'login' => 'demo',
             'password' => 'demo',
             'authKey' => 'test101key',
             'accessToken' => '101-token',
@@ -109,13 +112,13 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        // foreach (self::$users as $user) {
-        //     if ($user['accessToken'] === $token) {
-        //         return new static($user);
-        //     }
-        // }
+        foreach (self::$users as $user) {
+            if ($user['accessToken'] === $token) {
+                return new static($user);
+            }
+        }
 
-        return null;
+        // return null;
     }
 
     /**
@@ -127,8 +130,9 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public static function findByUsername($username)
     {
         return self::find()->where(['login' => $username])->one();
+
         // foreach (self::$users as $user) {
-        //     if (strcasecmp($user['username'], $username) === 0) {
+        //     if (strcasecmp($user['login'], $username) === 0) {
         //         return new static($user);
         //     }
         // }
@@ -150,7 +154,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function getAuthKey()
     {
         // return $this->authKey;
-        return "";
+        return null;
     }
 
     /**
