@@ -11,6 +11,7 @@ use app\models\User;
 use app\models\Films;
 use app\models\ReqestSearch;
 use app\models\Status;
+use app\models\ReqestCreateForm;
 
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -90,7 +91,7 @@ class LkController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Role();
+        $model = new Reqest();
         $model->id = Yii::$app->user->identity->id;
 
         if ($this->request->isPost) {
@@ -102,7 +103,6 @@ class LkController extends Controller
         }
 
         $films = Films::find()->all();
-        var_dump($films);
         $films = ArrayHelper::map($films, 'id', 'title');
 
         return $this->render('create', [
