@@ -21,7 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Reqest', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -38,9 +39,29 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Reqest $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                }
             ],
+            'date_req',
+            [
+                'class' => ActionColumn::className(),
+                'template' => '{cancel} {solve}',
+                'buttons' => [
+                    'cancel' => function ($url, $model) {
+                        if ($model->id_status == '1') {
+                            return Html::a('Отклонить', ['cancel', 'id' => $model->id]);
+                        }
+                    },
+                    'solve' => function ($url, $model) {
+                        if ($model->id_status == '1') {
+                            return Html::a('Подтвердить', ['cancel', 'id' => $model->id]);
+                        }
+                    },
+                ]
+            ]
         ],
+
+
+
     ]); ?>
 
 
