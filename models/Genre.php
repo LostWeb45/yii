@@ -5,21 +5,19 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "role".
+ * This is the model class for table "genre".
  *
  * @property int $id
  * @property string $name
- *
- * @property User[] $users
  */
-class Role extends \yii\db\ActiveRecord
+class Genre extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'role';
+        return 'genre';
     }
 
     /**
@@ -42,16 +40,5 @@ class Role extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
         ];
-    }
-
-
-    /**
-     * Gets query for [[Users]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUsers()
-    {
-        return $this->hasMany(User::class, ['id_role' => 'id']);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use Yii;
 use app\models\Role;
 use app\models\RoleSearch;
 use yii\web\Controller;
@@ -30,7 +31,10 @@ class RoleController extends Controller
             ]
         );
     }
-
+    public function getRole()
+    {
+        return Role::find()->where(['id' => Yii::$app->user->identity->id_role]);
+    }
     /**
      * Lists all Role models.
      *

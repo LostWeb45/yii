@@ -48,16 +48,28 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'cancel' => function ($url, $model) {
                         if ($model->id_status == '1') {
-                            return Html::a('Отклонить', ['cancel', 'id' => $model->id]);
+                            return Html::a('Отклонить', ['cancel', 'id' => $model->id], [
+                                'class' => 'btn btn-danger',
+                                'data-method' => 'post', // Для безопасности
+                            ]);
+                        } else {
+                            if ($model->id_status == '2') {
+                                return Html::a('Подтверждена');
+                            } else {
+                                return Html::a('Отклонена');
+                            }
                         }
                     },
                     'solve' => function ($url, $model) {
                         if ($model->id_status == '1') {
-                            return Html::a('Подтвердить', ['cancel', 'id' => $model->id]);
+                            return Html::a('Подтвердить', ['solve', 'id' => $model->id], [
+                                'class' => 'btn btn-success',
+                                'data-method' => 'post', // Для безопасности
+                            ]);
                         }
                     },
                 ]
-            ]
+            ],
         ],
 
 

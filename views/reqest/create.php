@@ -1,5 +1,6 @@
 <?php
 
+use Symfony\Component\VarDumper\VarDumper;
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
@@ -8,6 +9,8 @@ use yii\helpers\Html;
 $this->title = 'Create Reqest';
 $this->params['breadcrumbs'][] = ['label' => 'Reqests', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+
 ?>
 <div class="reqest-create">
 
@@ -15,6 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'users' => $users,
+
     ]) ?>
 
 </div>

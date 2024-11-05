@@ -1,5 +1,7 @@
 <?php
 
+use Symfony\Component\VarDumper\VarDumper;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -14,7 +16,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_film')->textInput() ?>
 
-    <?= $form->field($model, 'id_user')->textInput() ?>
+    <?= $form->field($model, 'id_user')->dropDownList(ArrayHelper::map($users, 'id', 'name'))->label('Имя пользователя');
+    ?>
 
     <?= $form->field($model, 'date_req')->textInput() ?>
 

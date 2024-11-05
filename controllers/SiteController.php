@@ -9,6 +9,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Films;
+use app\models\Role;
 
 class SiteController extends Controller
 {
@@ -61,7 +63,17 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->render(
+            'index',
+            [
+                'films' => Films::find()->limit(20)->all(),
+
+
+                // 'films' => Films::findAll(1),
+                'role_name' => Role::findOne(['id' => Yii::$app->user->identity->id_role]),
+
+            ]
+        );
     }
 
     /**
