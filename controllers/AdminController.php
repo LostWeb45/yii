@@ -17,7 +17,7 @@ class AdminController extends Controller
 {
     public function beforeAction($action)
     {
-        if (Yii::$app->user-> || (Yii::$app->user->identity->id_role != 2)) {
+        if (Yii::$app->user->isGuest || Yii::$app->user->identity->id_role != 2) {
             $this->redirect(['site/login']);
         }
 

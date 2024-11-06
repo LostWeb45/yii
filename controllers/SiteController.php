@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Films;
+use app\models\Genre;
 use app\models\Role;
 
 class SiteController extends Controller
@@ -63,10 +64,31 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+
+        // $films = Films::find()->limit(20)->all();
+        // $genre = Genre::find()->limit(20)->all();
+
+        // $genre = Films::find()->join('INNER JOIN', 'films', 'films.id_genre = genre.id')->all();
+        // return $this->render(
+        //     'index',
+        //     [
+        //         'films' => $genre,
+
+
+        //         'role_name' => !Yii::$app->user->isGuest ?
+        //             Role::findOne(['id' => Yii::$app->user->identity->id_role]) : null,
+        //     ]
+        // );
+        $genre = Films::find()
+            ->joinWith('genre')
+            ->select(['films.*', 'genre.name as genre_name'])
+            ->asArray()
+            ->all();
+
         return $this->render(
             'index',
             [
-                'films' => Films::find()->limit(20)->all(),
+                'films' => $genre,
 
                 'role_name' => !Yii::$app->user->isGuest ?
                     Role::findOne(['id' => Yii::$app->user->identity->id_role]) : null,

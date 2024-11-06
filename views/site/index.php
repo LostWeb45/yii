@@ -31,7 +31,7 @@ $this->title = 'My Yii Application';
                         <h2><?= $film['title'] ?></h2>
 
                         <p><?= $film['descr'] ?></p>
-                        <strong>Жанр: <?= $film['id_genre'] ?></strong>
+                        <strong>Жанр: <?= $film['genre_name'] ?></strong>
 
                         <!-- <p><a class="btn btn-outline-secondary" href="https://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p> -->
                     </div>

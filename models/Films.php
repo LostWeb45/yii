@@ -58,4 +58,8 @@ class Films extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Reqest::class, ['id_film' => 'id']);
     }
+    public function getGenre()
+    {
+        return $this->hasOne(Genre::class, ['id' => 'id_genre']);
+    }
 }
