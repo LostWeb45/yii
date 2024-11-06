@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Films;
 use app\models\FilmsSearch;
+use Symfony\Component\VarDumper\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -40,6 +41,7 @@ class FilmsController extends Controller
     {
         $searchModel = new FilmsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+
 
         return $this->render('index', [
             'searchModel' => $searchModel,

@@ -29,10 +29,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            // 'id',
+
             'title',
             'descr:ntext',
-            'img:ntext',
+            // 'img:ntext',
+            [
+                'label' => 'Жанр',
+                'value' => $model->genre->name,
+
+            ],
         ],
     ]) ?>
 

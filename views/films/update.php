@@ -1,5 +1,6 @@
 <?php
 
+use Symfony\Component\VarDumper\VarDumper;
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
@@ -11,6 +12,7 @@ $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'i
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="films-update">
+
 
     <h1><?= Html::encode($this->title) ?></h1>
 

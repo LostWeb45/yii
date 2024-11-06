@@ -30,9 +30,9 @@ class Films extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'descr', 'img'], 'required'],
+            [['title', 'descr', 'img', 'id_genre'], 'required'],
             [['descr', 'img'], 'string'],
-            [['title'], 'string', 'max' => 255],
+            [['title'], 'string', 'max'  => 255],
         ];
     }
 
@@ -45,6 +45,7 @@ class Films extends \yii\db\ActiveRecord
             'id' => 'ID',
             'title' => 'Title',
             'descr' => 'Descr',
+            'id_genre' => 'Genre',
             'img' => 'Img',
         ];
     }
