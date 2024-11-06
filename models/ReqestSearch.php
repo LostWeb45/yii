@@ -40,9 +40,17 @@ class ReqestSearch extends Reqest
      */
     public function search($params)
     {
-        $query = Reqest::find();
+        // $query = Reqest::find();
+        $query = Reqest::find()
+            ->joinWith('film') // Убедитесь, что метод getFilms существует
+            ->select(['reqest.*', 'films.title as film_name']);
 
-        // add conditions that should always apply here
+
+
+        //  $query = Films::find()
+        //->joinWith('genre')
+        //  ->select(['films.*', 'genre.name as genre_name']);
+
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

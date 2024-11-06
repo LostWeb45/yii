@@ -93,6 +93,7 @@ class LkController extends Controller
     {
         $model = new Reqest();
         $model->id = Yii::$app->user->identity->id;
+        $model->id_user = Yii::$app->user->identity->id;
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {

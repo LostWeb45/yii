@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Reqest;
+use Symfony\Component\VarDumper\VarDumper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -34,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_user',
             'date_req',
             'id_status',
+
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Reqest $model, $key, $index, $column) {

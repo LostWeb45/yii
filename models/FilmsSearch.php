@@ -42,13 +42,9 @@ class FilmsSearch extends Films
     {
         // $query = Films::find();
 
-
         $query = Films::find()
             ->joinWith('genre')
             ->select(['films.*', 'genre.name as genre_name']);
-
-
-
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
