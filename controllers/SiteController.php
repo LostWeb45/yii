@@ -68,10 +68,8 @@ class SiteController extends Controller
             [
                 'films' => Films::find()->limit(20)->all(),
 
-
-                // 'films' => Films::findAll(1),
-                'role_name' => Role::findOne(['id' => Yii::$app->user->identity->id_role]),
-
+                'role_name' => !Yii::$app->user->isGuest ?
+                    Role::findOne(['id' => Yii::$app->user->identity->id_role]) : null,
             ]
         );
     }

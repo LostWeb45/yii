@@ -9,13 +9,17 @@ $this->title = 'My Yii Application';
 <div class="site-index">
 
     <div class="jumbotron text-center bg-transparent mt-5 mb-5">
-        <h1 class="display-4">Добро пожаловть<?= " " .
-                                                    Yii::$app->user->identity->name;
-                                                ?></h1>
+        <h1 class="display-4">Добро пожаловать,
+            <?= Yii::$app->user->identity->name ?? 'Гость'; ?>
+        </h1>
 
-        <p class="lead">Ваша роль <?= $role_name['name']; ?></p>
+        <p class="lead">Ваша роль:
+            <?= !Yii::$app->user->isGuest
+                ? $role_name['name']
+                : 'гость'; ?>
+        </p>
 
-        <p><a class="btn btn-lg btn-success" href="https://www.yiiframework.com">Get started with Yii</a></p>
+        <!-- <p><a class="btn btn-lg btn-success" href="https://www.yiiframework.com">Get started with Yii</a></p> -->
     </div>
 
     <div class="body-content">
