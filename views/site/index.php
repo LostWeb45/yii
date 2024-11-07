@@ -42,6 +42,7 @@ use app\models\Role;
                         $isActive = false;
                     ?>
                         <div class="carousel-item<?= $activeClass ?>">
+
                             <div class="row justify-content-center">
                                 <?php foreach ($chunk as $index => $film): ?>
                                     <div class="col-lg-4 mb-3 carousel-item-film <?= $index === 1 ? 'center' : '' ?>">

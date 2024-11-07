@@ -3,7 +3,7 @@
 /** @var yii\web\View $this */
 
 use app\models\Role;
-
+use Symfony\Component\VarDumper\VarDumper;
 
 // $this->title = 'My Yii Application';
 
@@ -25,13 +25,14 @@ use app\models\Role;
                 foreach (array_chunk($films, 3) as $chunk):  // Разделяем на группы по 3 фильма
                     $activeClass = $isActive ? ' active' : '';
                     $isActive = false;
+
                 ?>
                     <div class="carousel-item<?= $activeClass ?>">
                         <div class="row justify-content-center">
                             <?php foreach ($chunk as $index => $film): ?>
                                 <div class="col-lg-4 mb-3 carousel-item-film <?= $index === 1 ? 'center' : '' ?>">
                                     <div class="card">
-                                        <img src="./images/<?= $film['img']; ?>" class="card-img-top" alt="...">
+                                        <img src="<?= Yii::$app->request->baseUrl ?>/images/<?= $film['img']; ?>" class="card-img-top" alt="...">
                                         <div class="card-body">
                                             <h5 class="card-title"><?= $film['title'] ?></h5>
                                             <p class="card-text"><?= $film['descr'] ?></p>
