@@ -31,7 +31,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <body class="d-flex flex-column h-100">
     <?php $this->beginBody() ?>
 
-    <header id="header">
+    <header id="header" style="margin-bottom: 60px;">
         <?php
         NavBar::begin([
             // 'brandLabel' => Yii::$app->name,
@@ -41,15 +41,24 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         ]);
         $items = [];
         if (Yii::$app->user->isGuest) {
+            $items[] = ['label' => 'О нас', 'url' => ['/site/']];
+            $items[] = ['label' => 'Афиша', 'url' => ['/site/']];
+            $items[] = ['label' => 'Где нас найти?', 'url' => ['/site/']];
+
+
             $items[] =  ['label' => 'Регистрация', 'url' => ['/user/create']];
             $items[] = ['label' => 'Авторизация', 'url' => ['/site/login']];
         } else {
             if (Yii::$app->user->identity->id_role == 2) {
                 $items[] = ['label' => 'Админ панель', 'url' => ['/admin']];
             } else {
+                $items[] = ['label' => 'О нас', 'url' => ['/site/']];
+                $items[] = ['label' => 'Афиша', 'url' => ['/site/']];
+                $items[] = ['label' => 'Где нас найти?', 'url' => ['/site/']];
                 $items[] = ['label' => 'Личный кабинет', 'url' => ['/lk']];
             }
             $items[] = '<li>'
+
                 . Html::beginForm(['/site/logout'])
                 . Html::submitButton(
                     'Logout (' . Yii::$app->user->identity->login . ')',

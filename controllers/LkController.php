@@ -4,7 +4,6 @@ namespace app\controllers;
 
 use Yii;
 
-use app\models\Role;
 use app\models\RoleSearch;
 use app\models\Reqest;
 use app\models\User;
@@ -46,7 +45,7 @@ class LkController extends Controller
             parent::behaviors(),
             [
                 'verbs' => [
-                    'class' => VerbFilter::className(),
+                    'class' => VerbFilter::class,
                     'actions' => [
                         'delete' => ['POST'],
                     ],
@@ -92,7 +91,6 @@ class LkController extends Controller
     public function actionCreate()
     {
         $model = new Reqest();
-        $model->id = Yii::$app->user->identity->id;
         $model->id_user = Yii::$app->user->identity->id;
 
         if ($this->request->isPost) {
@@ -149,12 +147,12 @@ class LkController extends Controller
      * Finds the Role model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Role the loaded model
+     * @return Reqest the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Role::findOne(['id' => $id])) !== null) {
+        if (($model = Reqest::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

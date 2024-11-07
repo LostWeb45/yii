@@ -75,7 +75,9 @@ class ReqestController extends Controller
         $users = User::find()->all();
 
         if ($this->request->isPost) {
+
             if ($model->load($this->request->post()) && $model->save()) {
+
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {

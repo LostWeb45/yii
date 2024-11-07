@@ -1,5 +1,6 @@
 <?php
 
+
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -25,7 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -34,8 +34,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_user',
             'date_req',
             'id_status',
-
         ],
     ]) ?>
+
 
 </div>

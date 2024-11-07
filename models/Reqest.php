@@ -33,8 +33,8 @@ class Reqest extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_film', 'id_user', 'id_status'], 'required'],
-            [['id_film', 'id_user', 'id_status'], 'integer'],
+            [['id_film', 'id_user'], 'required'],
+            [['id_film', 'id_user'], 'integer'],
             [['date_req'], 'safe'],
             [['id_film'], 'exist', 'skipOnError' => true, 'targetClass' => Films::class, 'targetAttribute' => ['id_film' => 'id']],
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_user' => 'id']],

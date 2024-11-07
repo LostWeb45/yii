@@ -30,14 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
 
-            // 'id',
+            'id',
             'id_film',
             'id_user',
             'date_req',
             'id_status',
 
             [
-                'class' => ActionColumn::className(),
+                'class' => ActionColumn::class,
                 'urlCreator' => function ($action, Reqest $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                 }
