@@ -42,7 +42,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         $items = [];
         if (Yii::$app->user->isGuest) {
             $items[] = ['label' => 'О нас', 'url' => ['/site/']];
-            $items[] = ['label' => 'Афиша', 'url' => ['/site/']];
+            $items[] = ['label' => 'Афиша', 'url' => ['/site/afisha/']];
             $items[] = ['label' => 'Где нас найти?', 'url' => ['/site/']];
 
 
@@ -53,7 +53,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 $items[] = ['label' => 'Админ панель', 'url' => ['/admin']];
             } else {
                 $items[] = ['label' => 'О нас', 'url' => ['/site/']];
-                $items[] = ['label' => 'Афиша', 'url' => ['/site/']];
+                $items[] = ['label' => 'Афиша', 'url' => ['/site/afisha/']];
                 $items[] = ['label' => 'Где нас найти?', 'url' => ['/site/']];
                 $items[] = ['label' => 'Личный кабинет', 'url' => ['/lk']];
             }

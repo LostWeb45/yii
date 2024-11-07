@@ -157,4 +157,22 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+    public function actionAfisha()
+    {
+        $genre = Films::find()
+            ->joinWith('genre')
+            ->select(['films.*', 'genre.name as genre_name'])
+            ->asArray()
+            ->all();
+
+        return $this->render(
+            'afisha',
+            [
+                'films' => $genre,
+
+                'role_name' => !Yii::$app->user->isGuest ?
+                    Role::findOne(['id' => Yii::$app->user->identity->id_role]) : null,
+            ]
+        );
+    }
 }
