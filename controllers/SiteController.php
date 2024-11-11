@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\FilmsSearch;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -160,19 +161,23 @@ class SiteController extends Controller
     public function actionAfisha()
     {
         $genre = Films::find()
-            ->joinWith('genre')
-            ->select(['films.*', 'genre.name as genre_name'])
-            ->asArray()
+            // ->joinWith('genre')
+            // ->select(['films.*', 'genre.name as genre_name'])
+            // ->asArray()
             ->all();
+        $searchModel = new FilmsSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render(
-            'afisha',
-            [
-                'films' => $genre,
 
-                'role_name' => !Yii::$app->user->isGuest ?
-                    Role::findOne(['id' => Yii::$app->user->identity->id_role]) : null,
-            ]
-        );
+        return $this->render('afisha', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+
+            'films' => $genre,
+
+            'role_name' => !Yii::$app->user->isGuest ?
+                Role::findOne(['id' => Yii::$app->user->identity->id_role]) : null,
+
+        ]);
     }
 }
