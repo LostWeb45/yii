@@ -26,15 +26,10 @@ use yii\helpers\Url;
 
 <div class="body-content">
 
-
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            'id',
-            'title',
-            'descr',
             [
                 'attribute' => 'Обложка',
                 'format' => 'html',
@@ -45,21 +40,31 @@ use yii\helpers\Url;
                     );
                 },
             ],
+            'title',
+            'descr',
             [
                 'attribute' => 'id_genre',
                 'value' => 'genre.name',
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{cancel}',
+                'template' => '{cancel} {view}',
                 'buttons' => [
                     'cancel' => function ($url, $model) {
                         return Html::a('Добавить в корзину', ['cancel', 'id' => $model->id]);
                     },
+                    'view' => function ($url, $model) {
+                        return Html::a(
+                            '<span class="btn-outline-secondary">Подробнее &raquo;</span>',
+                            ['films/view', 'id' => $model->id],
+                            ['class' => 'btn btn-outline-secondary']
+                        );
+                    }
                 ],
             ],
         ],
     ]); ?>
+
 
 </div>
 

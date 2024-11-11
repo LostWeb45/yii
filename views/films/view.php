@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
+    <!-- <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -24,22 +24,38 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-    </p>
+    </p> -->
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            // 'id',
-
+            [
+                'label' => 'Обложка',
+                'attribute' => 'img',
+                'format' => 'html',
+                'value' => function ($data) {
+                    return Html::img(
+                        Yii::getAlias('@web') . '/images/' . $data->img,
+                        ['width' => '700px']
+                    );
+                },
+            ],
             'title',
             'descr:ntext',
-            // 'img:ntext',
             [
                 'label' => 'Жанр',
                 'value' => $model->genre->name,
-
             ],
         ],
     ]) ?>
+
+    <div>
+        <?= Html::button('Добавить в корзину', [
+            'class' => 'btn btn-success',
+            'onclick' => 'addToCart(' . $model->id . ');', // Здесь вы можете добавить функцию для обработки добавления в корзину
+        ]) ?>
+    </div>
+
+
 
 </div>
