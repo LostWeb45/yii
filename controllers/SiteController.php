@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\FilmsSearch;
+use app\models\SessionSearch;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -13,6 +14,7 @@ use app\models\ContactForm;
 use app\models\Films;
 use app\models\Genre;
 use app\models\Role;
+use app\models\Session;
 
 class SiteController extends Controller
 {
@@ -160,12 +162,12 @@ class SiteController extends Controller
     }
     public function actionAfisha()
     {
-        $genre = Films::find()
+        $genre = Session::find()
             // ->joinWith('genre')
             // ->select(['films.*', 'genre.name as genre_name'])
             // ->asArray()
             ->all();
-        $searchModel = new FilmsSearch();
+        $searchModel = new SessionSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
 

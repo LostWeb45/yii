@@ -11,6 +11,7 @@ use app\models\Session;
  */
 class SessionSearch extends Session
 {
+    public $film;
     /**
      * {@inheritdoc}
      */
@@ -64,6 +65,7 @@ class SessionSearch extends Session
             'date_pok' => $this->date_pok,
         ]);
 
+        $query->andFilterWhere(['like', Films::tableName() . '.title', $this->film]);
         $query->andFilterWhere(['like', 'cenz', $this->cenz]);
 
         return $dataProvider;

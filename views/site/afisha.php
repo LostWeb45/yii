@@ -35,17 +35,30 @@ use yii\helpers\Url;
                 'format' => 'html',
                 'value' => function ($data) {
                     return Html::img(
-                        Yii::getAlias('@web') . '/images/' . $data['img'],
+                        Yii::getAlias('@web') . '/images/' . $data->film->img,
                         ['width' => '70px']
                     );
                 },
             ],
-            'title',
-            'descr',
             [
-                'attribute' => 'id_genre',
-                'value' => 'genre.name',
+                'attribute' => 'id_film',
+                'filter' => Films::find()->select(['id', 'title'])->indexBy('id')->column(),
+                'value' => function ($data) {
+                    return $data->film ? $data->film->title : 'Нет данных';
+                }
             ],
+            [
+                'attribute' => 'film.genre.id',
+                'value' => 'film.genre.name'
+            ],
+            [
+                'attribute' => 'descr',
+                'value' => 'film.descr'
+            ],
+            'price',
+            'date_pok',
+            'cenz',
+
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{cancel} {view}',
