@@ -41,9 +41,7 @@ class ReqestSearch extends Reqest
     public function search($params)
     {
         // $query = Reqest::find();
-        $query = Reqest::find()
-            ->joinWith('film') // Убедитесь, что метод getFilms существует
-            ->select(['reqest.*', 'films.title as film_name']);
+        $query = Reqest::find();
 
 
 

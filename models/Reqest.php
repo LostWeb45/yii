@@ -48,11 +48,11 @@ class Reqest extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'id_film' => 'Id Film',
-            'id_user' => 'Id User',
-            'date_req' => 'Date Req',
-            'id_status' => 'Id Status',
+            'id' => 'Номер заявления',
+            'id_film' => 'Название фильма',
+            'id_user' => 'Имя пользователя',
+            'date_req' => 'Дата создания',
+            'id_status' => 'Статус',
         ];
     }
 

@@ -31,10 +31,23 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
 
             'id',
-            'id_film',
-            'id_user',
+            // 'id_film',
+            [
+                // 'title' => 'Название фильма',
+                'attribute' => 'id_film',
+                'value' => 'film.title',
+            ],
+            [
+                // 'title' => 'Название фильма',
+                'attribute' => 'id_user',
+                'value' => 'user.name',
+            ],
             'date_req',
-            'id_status',
+            [
+                // 'title' => 'Название фильма',
+                'attribute' => 'id_status',
+                'value' => 'status.status',
+            ],
 
             [
                 'class' => ActionColumn::class,

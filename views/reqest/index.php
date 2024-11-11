@@ -36,14 +36,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'date_req',
             'id_status',
             [
-                'class' => ActionColumn::className(),
+                'class' => ActionColumn::class,
                 'urlCreator' => function ($action, Reqest $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                 }
             ],
             'date_req',
             [
-                'class' => ActionColumn::className(),
+                'class' => ActionColumn::class,
                 'template' => '{cancel} {solve}',
                 'buttons' => [
                     'cancel' => function ($url, $model) {
