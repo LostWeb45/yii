@@ -22,6 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Управление Фильмами', ['/films'], ['class' => 'btn btn-success']) ?>
     </p>
-
+    <p>
+        <?= Html::a('Управление пользователями', ['/user'], ['class' => 'btn btn-success']) ?>
+    </p>
 
 </div>

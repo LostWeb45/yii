@@ -21,7 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -36,12 +37,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'login',
             //'email:email',
             //'password',
-            //'id_role',
+            'id_role',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, User $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                }
             ],
         ],
     ]); ?>
