@@ -10,6 +10,8 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\Pjax;
+use yii\widgets\PjaxAsset;
 
 // $this->title = 'My Yii Application';
 
@@ -25,7 +27,6 @@ use yii\helpers\Url;
 
 
 <div class="body-content">
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -64,7 +65,7 @@ use yii\helpers\Url;
                 'template' => '{cancel} {view}',
                 'buttons' => [
                     'cancel' => function ($url, $model) {
-                        return Html::a('Добавить в корзину', ['cancel', 'id' => $model->id]);
+                        return Html::button('Добавить в корзину', ['onclick' => 'sendBasket(' . $model->id . ')']);
                     },
                     'view' => function ($url, $model) {
                         return Html::a(
@@ -76,8 +77,11 @@ use yii\helpers\Url;
                 ],
             ],
         ],
-    ]); ?>
+    ]);
 
+
+
+    ?>
 
 </div>
 
