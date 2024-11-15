@@ -56,6 +56,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 $items[] = ['label' => 'Афиша', 'url' => ['/site/afisha/']];
                 $items[] = ['label' => 'Где нас найти?', 'url' => ['/site/']];
                 $items[] = ['label' => 'Личный кабинет', 'url' => ['/lk']];
+                $items[] = ['label' => 'Корзина', 'url' => ['/basket']];
             }
             $items[] = '<li>'
 
